@@ -15,8 +15,8 @@ function renderCube(xYZ, columnsRows, calcNumber) {
     calculation.innerText = " ".concat(calcNumber, " x ").concat(calcNumber, " x ").concat(calcNumber, " = ").concat(xYZ * calcNumber, "  ");
     img.src = "img/cube-svgrepo-com%20(3).svg";
     img.id = 'logo';
-    calContainer.appendChild(img);
     calContainer.appendChild(calculation);
+    calContainer.appendChild(img);
     for (var sideNumber = 0; sideNumber < sides.length; sideNumber++) {
         var cubeSides = document.createElement('div');
         cubeSides.className = "side ".concat(sides[sideNumber]);
