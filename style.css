@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --cube-size: 40vmin;
+    --side-size: calc(var(--cube-size) / 2);
+    --perspective: calc(var(--cube-size) * 3);
+    --gap: 0.5vmin;
+}
+
+html, body {
+    height: 100%;
+}
+
+
+body {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background-color: #141a20;
+}
+
+.container {
+    position: relative;
+    top: -15%;
+    perspective: var(--perspective);
+}
+
+.cube {
+    transform-origin: center center;
+    position: relative;
+    width: var(--cube-size);
+    height: var(--cube-size);
+    transform-style: preserve-3d;
+    animation: cube-rotation 20s linear infinite;
+}
+
+.side {
+    position: absolute;
+    display: grid;
+    /*grid-template-columns: repeat(5, 1fr);*/
+    grid-gap: var(--gap);
+    width: calc(var(--cube-size) - var(--gap));
+    height: calc(var(--cube-size) - var(--gap));
+    backface-visibility: hidden;
+}
+
+.tile {
+    position: relative;
+    --index: 0;
+    animation:
+            tile-color 4s linear alternate infinite,
+            tile-glow 2s linear infinite;
+    animation-delay:
+            calc(var(--index) * -0.025s),
+            calc(var(--index) * -0.25s);
+}
+
+.front  { transform: rotateY(  0deg) translateZ(var(--side-size)); }
+.back   { transform: rotateY(180deg) translateZ(var(--side-size)); }
+.right  { transform: rotateY( 90deg) translateZ(var(--side-size)); }
+.left   { transform: rotateY(-90deg) translateZ(var(--side-size)); }
+.top    { transform: rotateX( 90deg) translateZ(var(--side-size)); }
+.bottom { transform: rotateX(-90deg) translateZ(var(--side-size)); }
+
+@keyframes cube-rotation {
+    from { transform: rotateX(-20deg) rotateY(0) }
+    to   { transform: rotateX(-20deg) rotateY(1turn) }
+}
+
+@keyframes tile-glow {
+    50% { opacity: 0.7 }
+}
+
+@keyframes tile-color {
+    0%   { background-color: #00ffb2
+    }
+    25%  { background-color: #00ff8f
+    }
+    50%  { background-color: #39ff9e
+    }
+    100% { background-color: #00ff2a
+    }
+    75%  { background-color: rgba(6, 255, 190, 0.7)
+    }
+}
+
+input,button {
+    background-color: rgba(255,255,255,0);
+    color: ghostwhite;
+    border: solid 2px #616161;
+    max-height: 60px;
+    min-height: 60px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: large;
+}
+
+button:hover {
+    background-color: rgb(32, 41, 49);
+    border-color: ghostwhite;
+}
+
+button:active {
+    background-color: rgb(10, 12, 16);
+}
+
+.cal-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    top: 50%;
+    z-index: 12;
+    color: ghostwhite;
+    right: 5%;
+    font-size: xx-large;
+    font-family: "Fira Code Retina", monospace;
+}
+
+#logo {
+    height: 50px;
+    filter: invert(48%) sepia(79%) saturate(2000%) hue-rotate(50deg) brightness(118%) contrast(119%)
+}
