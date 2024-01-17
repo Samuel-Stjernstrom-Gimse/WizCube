@@ -22,8 +22,8 @@ function renderCube (xYZ: number, columnsRows: number, calcNumber){
     img.src ="img/cube-svgrepo-com%20(3).svg"
     img.id = 'logo'
 
-    calContainer.appendChild(img)
     calContainer.appendChild(calculation)
+    calContainer.appendChild(img)
 
     for (let sideNumber = 0; sideNumber < sides.length; sideNumber++) {
         const cubeSides = document.createElement('div');
