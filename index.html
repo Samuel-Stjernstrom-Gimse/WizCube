@@ -4,15 +4,32 @@
     <meta charset="UTF-8">
     <title>WizCube</title>
     <link rel="stylesheet" href="style.css">
+
+    <script>
+        window.addEventListener("load",
+            function () {
+                document.body.style.opacity = 1;
+            });
+    </script>
+
 </head>
 <body>
 <div>
-    <input placeholder="X*Y*Z" class="input" id="input-1" type="number"/>
-    <button id="button">Calculate</button>
+
 </div>
 <div class="container">
     <div class="cube">
 
+    </div>
+</div>
+<div class="button-container">
+    <div>
+        <input min="1" max="50" placeholder="1-45" class="input" id="input-1" type="number"/>
+        <button id="button">Calculate</button>
+    </div>
+    <div>
+        <button id="rax">Rotation Axis X</button>
+        <button id="ray">Rotation Axis Y</button>
     </div>
 </div>
 <div class="cal-container">

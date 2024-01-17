@@ -2,6 +2,8 @@
     box-sizing: border-box;
 }
 
+
+
 :root {
     --cube-size: 40vmin;
     --side-size: calc(var(--cube-size) / 2);
@@ -11,6 +13,11 @@
 
 html, body {
     height: 100%;
+}
+
+body {
+    opacity: 0;
+    transition: opacity 2.5s ease-in-out;
 }
 
 
@@ -55,6 +62,7 @@ body {
     animation-delay:
             calc(var(--index) * -0.025s),
             calc(var(--index) * -0.25s);
+    transition: 1s;
 }
 
 .front  { transform: rotateY(  0deg) translateZ(var(--side-size)); }
@@ -63,12 +71,12 @@ body {
 .left   { transform: rotateY(-90deg) translateZ(var(--side-size)); }
 .top    { transform: rotateX( 90deg) translateZ(var(--side-size)); }
 .bottom { transform: rotateX(-90deg) translateZ(var(--side-size)); }
-
+/*
 @keyframes cube-rotation {
     from { transform: rotateX(-20deg) rotateY(0) }
     to   { transform: rotateX(-20deg) rotateY(1turn) }
 }
-
+*/
 @keyframes tile-glow {
     50% { opacity: 0.7 }
 }
@@ -76,11 +84,11 @@ body {
 @keyframes tile-color {
     0%   { background-color: #00ffb2
     }
-    25%  { background-color: #00ff8f
+    25%  { background-color: #00ffe2
     }
     50%  { background-color: #39ff9e
     }
-    100% { background-color: #00ff2a
+    100% { background-color: #00b5ff
     }
     75%  { background-color: rgba(6, 255, 190, 0.7)
     }
@@ -95,6 +103,7 @@ input,button {
     border-radius: 10px;
     text-align: center;
     font-size: large;
+    transition: 0.3s;
 }
 
 button:hover {
@@ -104,6 +113,7 @@ button:hover {
 
 button:active {
     background-color: rgb(10, 12, 16);
+    color: #00ff2a;
 }
 
 .cal-container {
@@ -124,4 +134,19 @@ button:active {
 #logo {
     height: 50px;
     filter: invert(48%) sepia(79%) saturate(2000%) hue-rotate(50deg) brightness(118%) contrast(119%)
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+input {
+    border: 2px solid ghostwhite;
+    animation-name: tile-glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
