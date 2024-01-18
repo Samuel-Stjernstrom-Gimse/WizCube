@@ -44,15 +44,15 @@ Behold the magical moments with WizCube! [Insert Screenshot or GIF here]
 - *Why do wizards love WizCube?*
   - *Because it's the only place where they can rotate the magic without any spell checks!*
 
-## Experience the Enhanced Magic 🌈🌀
+## Experience the Enhanced Magic 🌀
 
 Explore the enriched enchantment yourself: [WizCube Live](https://samuelkodehode.github.io/wizCube/)
 
-## Contribute to the Spellbook 📜🔗
+## Contribute to the Spellbook 📜
 
 Feel the calling of magic within? Contribute to the mystical journey by opening an issue or casting a pull request. All magical contributions are welcomed!
 
-## License 📃🔒
+## License 📃
 
 WizCube is enchanted under the spell of the MIT License - consult the [LICENSE](LICENSE) parchment for details.
 
