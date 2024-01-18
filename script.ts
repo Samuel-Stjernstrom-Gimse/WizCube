@@ -9,6 +9,10 @@ const calContainer: Element = document.querySelector('.cal-container')
 const buttonRax: HTMLElement = document.getElementById('rax')
 const buttonRay: HTMLElement = document.getElementById('ray')
 
+const speedUp: HTMLElement = document.getElementById('speedUp')
+const speedDown: HTMLElement = document.getElementById('speedDown')
+let speed: number = 40
+
 button.addEventListener('click', (): void => {
     if (factor.valueAsNumber > maxFactor) {
         factor.valueAsNumber = 0
@@ -17,6 +21,7 @@ button.addEventListener('click', (): void => {
     renderCube(square, Math.sqrt(square), factor.valueAsNumber )
 })
 
+//build, render, inject function
 const renderCube = (xYZ: number, columnsRows: number, factorX: number):void =>{
     calContainer.innerHTML = ' '
     cube.innerHTML = ' '
@@ -53,44 +58,74 @@ const renderCube = (xYZ: number, columnsRows: number, factorX: number):void =>{
             cubeSides.appendChild(tile)
         }
     }
-
 }
-// cube rotation
-let xAxTrue: boolean = false
-let yAxTrue: boolean = false
 
-let xText: string = '-20deg'
-let yText: string = '1turn'
+// cube rotation color and speed manipulation
+const colorPicker: Element = document.querySelector('.color-picker')
+for(let i: number = 1; i <= 5; i++) {
+    let cssColor: string = `--color-${i}`
+    let color: HTMLInputElement = document.createElement('input') as HTMLInputElement
+
+    color.type = 'color'
+    color.id = `color${i}`
+    color.className = 'color-pickers'
+
+    colorPicker.appendChild(color)
+    color.addEventListener('input', (): void => {
+        document.documentElement.style.setProperty(cssColor, color.value)
+    })
+}
+
+speedUp.addEventListener('click',(): void => {
+    speed += 40
+    xText = xAxisTrue ? `${speed}turn` : '0'
+    yText = yAxisTrue ? '0' : `${speed}turn`
+
+
+    updateKeyframes()
+} )
+speedDown.addEventListener('click',(): void => {
+    speed -= 40
+    xText = xAxisTrue ? `${speed}turn` : '0'
+    yText = yAxisTrue ? '0' : `${speed}turn`
+
+    updateKeyframes()
+} )
 
 buttonRax.addEventListener('click', ():void => {
-    xAxTrue = !xAxTrue
-    xText = xAxTrue ? '1turn' : '-20deg'
+    xAxisTrue = !xAxisTrue
+    xText = xAxisTrue ? `${speed}turn` : '0'
 
     updateKeyframes()
 })
 
 buttonRay.addEventListener('click', ():void => {
-    yAxTrue = !yAxTrue
-    yText = yAxTrue ? '0' : '1turn'
+    yAxisTrue = !yAxisTrue
+    yText = yAxisTrue ? '0' : `${speed}turn`
 
     updateKeyframes()
 });
 
-function updateKeyframes() {
+let xAxisTrue: boolean = false
+let yAxisTrue: boolean = false
+
+let xText: string = '-20deg'
+let yText: string = `${speed}turn`
+
+function updateKeyframes(): void {
     document.styleSheets[0].deleteRule(0)
     document.styleSheets[0].insertRule(`
         @keyframes cube-rotation {
-            from { transform: rotateX(-20deg) rotateY(0); }
+            from { transform: rotateX(-20deg) rotateY(-45deg); }
             to { transform: rotateX(${xText}) rotateY(${yText}); }
         }
-    `, 0)
+    `,0)
 }
-
-updateKeyframes()
-
-renderCube(1,1,1)
 //error handler
 const error = (errorText: HTMLHeadingElement): void => {
     errorText.innerText = `ERROR only numbers 1-${maxFactor}`
     errorText.style.color = 'rgb(255,5,5)'
 }
+
+updateKeyframes()
+renderCube(1,1,1)
