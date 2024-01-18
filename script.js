@@ -1,101 +1,102 @@
-var factor = document.getElementById('input-1');
-var maxFactor = 40;
-var button = document.getElementById('button');
-var sides = ['front', 'back', 'right', 'left', 'top', 'bottom'];
-var cube = document.querySelector('.cube');
-var calContainer = document.querySelector('.cal-container');
-var buttonRax = document.getElementById('rax');
-var buttonRay = document.getElementById('ray');
-var speedUp = document.getElementById('speedUp');
-var speedDown = document.getElementById('speedDown');
-var speed = 40;
-button.addEventListener('click', function () {
+"use strict";
+let speed = 40;
+const maxFactor = 40;
+const sides = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+const factor = document.getElementById('input-1');
+const button = document.getElementById('button');
+const calContainer = document.querySelector('.cal-container');
+const cube = document.querySelector('.cube');
+const buttonRax = document.getElementById('rax');
+const buttonRay = document.getElementById('ray');
+const speedUp = document.getElementById('speedUp');
+const speedDown = document.getElementById('speedDown');
+button.addEventListener('click', () => {
     if (factor.valueAsNumber > maxFactor) {
         factor.valueAsNumber = 0;
     }
-    var square = factor.valueAsNumber * factor.valueAsNumber;
+    const square = factor.valueAsNumber * factor.valueAsNumber;
     renderCube(square, Math.sqrt(square), factor.valueAsNumber);
 });
-//build, render, inject function
-var renderCube = function (xYZ, columnsRows, factorX) {
+const renderCube = (xYZ, columnsRows, factorX) => {
     calContainer.innerHTML = ' ';
     cube.innerHTML = ' ';
     factor.value = '';
-    var img = document.createElement('img');
-    var calculation = document.createElement('h4');
-    factorX
-        ? calculation.innerText = " ".concat(factorX, " x ").concat(factorX, " x ").concat(factorX, " = ").concat(xYZ * factorX)
-        : error(calculation); //input control
-    img.src = "img/cube-svgrepo-com%20(3).svg";
+    const img = document.createElement('img');
+    const calculation = document.createElement('h4');
+    factorX ? (calculation.innerText = ` ${factorX} x ${factorX} x ${factorX} = ${xYZ * factorX}`) : error(calculation);
+    img.src = 'img/cube-svgrepo-com%20(3).svg';
     img.id = 'logo';
     calContainer.appendChild(calculation);
     calContainer.appendChild(img);
-    for (var sideNumber = 0; sideNumber < sides.length; sideNumber++) {
-        var cubeSides = document.createElement('div');
-        cubeSides.className = "side ".concat(sides[sideNumber]);
-        cubeSides.style.gridTemplateColumns = "repeat(".concat(columnsRows, ", 1fr)");
-        cubeSides.style.gridTemplateRows = "repeat(".concat(columnsRows, ", 1fr)");
-        cubeSides.id = "sides".concat(sideNumber);
+    for (let sideNumber = 0; sideNumber < sides.length; sideNumber++) {
+        const cubeSides = document.createElement('div');
+        cubeSides.className = `side ${sides[sideNumber]}`;
+        cubeSides.style.gridTemplateColumns = `repeat(${columnsRows}, 1fr)`;
+        cubeSides.style.gridTemplateRows = `repeat(${columnsRows}, 1fr)`;
+        cubeSides.id = `sides${sideNumber}`;
         cube.appendChild(cubeSides);
-        for (var x = 0; x < xYZ; x++) {
-            var tile = document.createElement('div');
+        for (let x = 0; x < xYZ; x++) {
+            const tile = document.createElement('div');
             tile.className = 'tile';
-            tile.id = "tile".concat(x, "-").concat(sideNumber); // ; is required ?
-            tile.style.cssText = "--index: ".concat(x);
+            tile.id = `tile${x}-${sideNumber}`;
+            tile.style.cssText = `--index: ${x}`;
             cubeSides.appendChild(tile);
         }
     }
 };
-// cube rotation color and speed manipulation
-var colorPicker = document.querySelector('.color-picker');
-var _loop_1 = function (i) {
-    var cssColor = "--color-".concat(i);
-    var color = document.createElement('input');
+const colorPicker = document.querySelector('.color-picker');
+const defaultColors = ['#0beac8', '#00ff22', '#1df40a', '#b5f60e', '#11ffc8'];
+for (let i = 1; i <= 5; i++) {
+    let cssColor = `--color-${i}`;
+    let color = document.createElement('input');
     color.type = 'color';
-    color.id = "color".concat(i);
+    color.id = `color${i}`;
     color.className = 'color-pickers';
+    color.value = defaultColors[i - 1];
     colorPicker.appendChild(color);
-    color.addEventListener('input', function () {
+    color.addEventListener('input', () => {
         document.documentElement.style.setProperty(cssColor, color.value);
     });
-};
-for (var i = 1; i <= 5; i++) {
-    _loop_1(i);
 }
-speedUp.addEventListener('click', function () {
+speedUp.addEventListener('click', () => {
     speed += 40;
-    xText = xAxisTrue ? "".concat(speed, "turn") : '0';
-    yText = yAxisTrue ? '0' : "".concat(speed, "turn");
+    xText = xAxisTrue ? `${speed}turn` : '0';
+    yText = yAxisTrue ? '0' : `${speed}turn`;
     updateKeyframes();
 });
-speedDown.addEventListener('click', function () {
+speedDown.addEventListener('click', () => {
     speed -= 40;
-    xText = xAxisTrue ? "".concat(speed, "turn") : '0';
-    yText = yAxisTrue ? '0' : "".concat(speed, "turn");
+    xText = xAxisTrue ? `${speed}turn` : '0';
+    yText = yAxisTrue ? '0' : `${speed}turn`;
     updateKeyframes();
 });
-buttonRax.addEventListener('click', function () {
+buttonRax.addEventListener('click', () => {
     xAxisTrue = !xAxisTrue;
-    xText = xAxisTrue ? "".concat(speed, "turn") : '0';
+    xText = xAxisTrue ? `${speed}turn` : '0';
     updateKeyframes();
 });
-buttonRay.addEventListener('click', function () {
+buttonRay.addEventListener('click', () => {
     yAxisTrue = !yAxisTrue;
-    yText = yAxisTrue ? '0' : "".concat(speed, "turn");
+    yText = yAxisTrue ? '0' : `${speed}turn`;
     updateKeyframes();
 });
-var xAxisTrue = false;
-var yAxisTrue = false;
-var xText = '-20deg';
-var yText = "".concat(speed, "turn");
-function updateKeyframes() {
+let xAxisTrue = false;
+let yAxisTrue = false;
+let xText = '-20deg';
+let yText = `${speed}turn`;
+const updateKeyframes = () => {
     document.styleSheets[0].deleteRule(0);
-    document.styleSheets[0].insertRule("\n        @keyframes cube-rotation {\n            from { transform: rotateX(-20deg) rotateY(-45deg); }\n            to { transform: rotateX(".concat(xText, ") rotateY(").concat(yText, "); }\n        }\n    "), 0);
-}
-//error handler
-var error = function (errorText) {
-    errorText.innerText = "ERROR only numbers 1-".concat(maxFactor);
+    document.styleSheets[0].insertRule(`
+        @keyframes cube-rotation {
+            from { transform: rotateX(-20deg) rotateY(-45deg); }
+            to { transform: rotateX(${xText}) rotateY(${yText}); }
+        }
+    `, 0);
+};
+const error = (errorText) => {
+    errorText.innerText = `ERROR only numbers 1-${maxFactor}`;
     errorText.style.color = 'rgb(255,5,5)';
 };
 updateKeyframes();
 renderCube(1, 1, 1);
+//# sourceMappingURL=script.js.map
