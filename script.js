@@ -98,5 +98,6 @@ const error = (errorText) => {
     errorText.style.color = 'rgb(255,5,5)';
 };
 updateKeyframes();
-renderCube(1, 1, 1);
+const square = 3 * 3;
+renderCube(square, Math.sqrt(square), 3);
 //# sourceMappingURL=script.js.map

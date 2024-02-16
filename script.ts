@@ -135,4 +135,5 @@ const error = (errorText: HTMLHeadingElement): void => {
 
 updateKeyframes()
 
-renderCube(1, 1, 1)
+const square: number = 3 * 3
+renderCube(square, Math.sqrt(square), 3)
