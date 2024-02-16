@@ -60,7 +60,7 @@ const renderCube = (xYZ: number, columnsRows: number, factorX: number): void => 
 
 // cube rotation color and speed manipulation
 const colorPicker = document.querySelector('.color-picker') as HTMLDivElement
-const defaultColors = ['#ff00fc', '#00fde1', '#002aff', '#ffffff', '#11ffc8']
+const defaultColors = ['#ff00fc', '#00fde1', '#0c34f8', '#ffffff', '#11ffc8']
 
 for (let i: number = 1; i <= 5; i++) {
 	let cssColor: string = `--color-${i}`

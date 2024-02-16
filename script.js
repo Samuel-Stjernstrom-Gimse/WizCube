@@ -45,7 +45,7 @@ const renderCube = (xYZ, columnsRows, factorX) => {
     }
 };
 const colorPicker = document.querySelector('.color-picker');
-const defaultColors = ['#ff00fc', '#00fde1', '#002aff', '#ffffff', '#11ffc8'];
+const defaultColors = ['#ff00fc', '#00fde1', '#0c34f8', '#ffffff', '#11ffc8'];
 for (let i = 1; i <= 5; i++) {
     let cssColor = `--color-${i}`;
     let color = document.createElement('input');
